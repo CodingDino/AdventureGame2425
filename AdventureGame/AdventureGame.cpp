@@ -26,25 +26,33 @@ void Move()
 
 void Quit()
 {
-    std::cout << "QUIT not yet implemented\n";
+    std::cout << "You have chosen to quit.\n";
+    std::cout << "Thanks for playing!\n";
 }
 
 int main()
 {
-    int choice = DisplayAndReadPlayerAction();
+    bool play = true;
 
-    switch (choice)
+    while (play)
     {
-    case 1:
-        Look();
-        break;
-    case 2:
-        Move();
-        break;
-    case 3:
-        Quit();
-        break;
+        int choice = DisplayAndReadPlayerAction();
+
+        switch (choice)
+        {
+        case 1:
+            Look();
+            break;
+        case 2:
+            Move();
+            break;
+        case 3:
+            Quit();
+            play = false;
+            break;
+        }
     }
+
 }
 
 
