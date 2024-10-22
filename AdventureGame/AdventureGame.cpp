@@ -16,9 +16,18 @@ int DisplayAndReadPlayerAction()
     return choice;
 }
 
-void Look()
+int Look()
 {
-    std::cout << "LOOK not yet implemented\n";
+    std::cout << "What would you like to look at?\n";
+    std::cout << "\t1.\tPlayer\n";
+    std::cout << "\t2.\tArea\n";
+    std::cout << "\t3.\tCancel\n";
+
+    int choice;
+    std::cin >> choice;
+    // TODO: input validation stuff
+
+    return choice;
 }
 
 void Move()
@@ -80,14 +89,29 @@ int main()
         switch (choice)
         {
         case 1:
-            Look();
+        {
+            int lookChoice = Look();
+            switch (lookChoice)
+            {
+            case 1:
+                DisplayPlayer(playerName, playerDescription, playerStamina);
+                break;
+            case 2:
+                DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+                break;
+            default:
+                break;
+            }
             break;
+        }
         case 2:
             Move();
             break;
         case 3:
             Quit();
             play = false;
+            break;
+        default:
             break;
         }
     }
