@@ -41,7 +41,7 @@ int Look()
     return choice;
 }
 
-void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescriptions, int& currentAreaIndex)
+void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescriptions, int& currentAreaIndex, int& stamina)
 {
     std::cout << "Where would you like to move?\n";
     int lower = currentAreaIndex - 1;
@@ -69,11 +69,13 @@ void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescr
     
     if (choice == lowerDisplayNum)
     {
+        stamina -= 5;
         currentAreaIndex = lower;
         DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
     }
     if (choice == upperDisplayNum)
     {
+        stamina -= 5;
         currentAreaIndex = upper;
         DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
     }
@@ -139,7 +141,7 @@ int main()
             break;
         }
         case 2:
-            Move(areaNames, areaDescriptions, currentAreaIndex);
+            Move(areaNames, areaDescriptions, currentAreaIndex, playerStamina);
             break;
         case 3:
             Quit();
