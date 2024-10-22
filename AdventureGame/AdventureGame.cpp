@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 int DisplayAndReadPlayerAction()
 {
@@ -37,11 +38,30 @@ void DisplayPlayer(std::string name, std::string desc, int stam)
     std::cout << "You have " << stam << " stamina.\n";
 }
 
+void DisplayArea(std::string areaName, std::string areaDescription)
+{
+    std::cout << "You find yourself in the " << areaName << "\n";
+    std::cout << areaDescription << "\n";
+}
+
 int main()
 {
     std::string playerName = "Steve";
-    std::string playerDescription = "A brave warrior";
+    std::string playerDescription = "A brave warrior.";
     int playerStamina = 100;
+
+    std::vector<std::string> areaNames;
+    std::vector<std::string> areaDescriptions;
+
+    areaNames.push_back("Courtyard");
+    areaNames.push_back("Entry Hall");
+    areaNames.push_back("Throne Room");
+
+    areaDescriptions.push_back("This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.");
+    areaDescriptions.push_back("The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.");
+    areaDescriptions.push_back("A stained and faded red carpet leads down the room to a jagged, black stone throne.");
+
+    int currentAreaIndex = 0;
 
     bool play = true;
 
@@ -50,6 +70,8 @@ int main()
 
     std::cout << "Welcome!\n";
     DisplayPlayer(playerName, playerDescription, playerStamina);
+
+    DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
 
     while (play)
     {
