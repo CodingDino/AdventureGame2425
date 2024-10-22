@@ -14,9 +14,37 @@ int DisplayAndReadPlayerAction()
     return choice;
 }
 
+void Look()
+{
+    std::cout << "LOOK not yet implemented\n";
+}
+
+void Move()
+{
+    std::cout << "MOVE not yet implemented\n";
+}
+
+void Quit()
+{
+    std::cout << "QUIT not yet implemented\n";
+}
+
 int main()
 {
     int choice = DisplayAndReadPlayerAction();
 
-    std::cout << choice;
+    switch (choice)
+    {
+    case 1:
+        Look();
+        break;
+    case 2:
+        Move();
+        break;
+    case 3:
+        Quit();
+        break;
+    }
 }
+
+
