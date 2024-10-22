@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 int DisplayAndReadPlayerAction()
 {
@@ -30,9 +31,25 @@ void Quit()
     std::cout << "Thanks for playing!\n";
 }
 
+void DisplayPlayer(std::string name, std::string desc, int stam)
+{
+    std::cout << "You are " << name << ", " << desc << "\n";
+    std::cout << "You have " << stam << " stamina.\n";
+}
+
 int main()
 {
+    std::string playerName = "Steve";
+    std::string playerDescription = "A brave warrior";
+    int playerStamina = 100;
+
     bool play = true;
+
+    std::cout << "Please enter your name.\n";
+    std::getline(std::cin, playerName);
+
+    std::cout << "Welcome!\n";
+    DisplayPlayer(playerName, playerDescription, playerStamina);
 
     while (play)
     {
