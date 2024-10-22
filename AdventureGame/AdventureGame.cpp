@@ -15,6 +15,17 @@ int DisplayAndReadPlayerAction()
 
     return choice;
 }
+void DisplayPlayer(std::string name, std::string desc, int stam)
+{
+    std::cout << "You are " << name << ", " << desc << "\n";
+    std::cout << "You have " << stam << " stamina.\n";
+}
+
+void DisplayArea(std::string areaName, std::string areaDescription)
+{
+    std::cout << "You find yourself in the " << areaName << "\n";
+    std::cout << areaDescription << "\n";
+}
 
 int Look()
 {
@@ -30,9 +41,43 @@ int Look()
     return choice;
 }
 
-void Move()
+void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescriptions, int& currentAreaIndex)
 {
-    std::cout << "MOVE not yet implemented\n";
+    std::cout << "Where would you like to move?\n";
+    int lower = currentAreaIndex - 1;
+    int lowerDisplayNum = -1;
+    int upper = currentAreaIndex + 1;
+    int upperDisplayNum = -1;
+    int displayNum = 0;
+    if (lower >= 0)
+    {
+        ++displayNum;
+        lowerDisplayNum = displayNum;
+        std::cout << "\t"<< displayNum <<".\t"<< areaNames[lower] <<"\n";
+    }
+    if (upper < areaNames.size())
+    {
+        ++displayNum;
+        upperDisplayNum = displayNum;
+        std::cout << "\t" << displayNum << ".\t" << areaNames[upper] << "\n";
+    }
+    ++displayNum;
+    std::cout << "\t" << displayNum << ".\t" << "Cancel" << "\n";
+
+    int choice;
+    std::cin >> choice;
+    
+    if (choice == lowerDisplayNum)
+    {
+        currentAreaIndex = lower;
+        DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+    }
+    if (choice == upperDisplayNum)
+    {
+        currentAreaIndex = upper;
+        DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+    }
+
 }
 
 void Quit()
@@ -41,17 +86,6 @@ void Quit()
     std::cout << "Thanks for playing!\n";
 }
 
-void DisplayPlayer(std::string name, std::string desc, int stam)
-{
-    std::cout << "You are " << name << ", " << desc << "\n";
-    std::cout << "You have " << stam << " stamina.\n";
-}
-
-void DisplayArea(std::string areaName, std::string areaDescription)
-{
-    std::cout << "You find yourself in the " << areaName << "\n";
-    std::cout << areaDescription << "\n";
-}
 
 int main()
 {
@@ -105,7 +139,7 @@ int main()
             break;
         }
         case 2:
-            Move();
+            Move(areaNames, areaDescriptions, currentAreaIndex);
             break;
         case 3:
             Quit();
