@@ -93,7 +93,7 @@ int main()
 {
     std::string playerName = "Steve";
     std::string playerDescription = "A brave warrior.";
-    int playerStamina = 100;
+    int playerStamina = 10;
 
     std::vector<std::string> areaNames;
     std::vector<std::string> areaDescriptions;
@@ -149,6 +149,12 @@ int main()
             break;
         default:
             break;
+        }
+
+        if (playerStamina <= 0)
+        {
+            std::cout << "You are out of stamina. Game Over - better luck next time.\n";
+            play = false;
         }
     }
 
