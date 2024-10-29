@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Player.h"
+#include "Area.h"
 
 int DisplayAndReadPlayerAction()
 {
@@ -22,10 +23,10 @@ void DisplayPlayer(Player player)
     std::cout << "You have " << player.stamina << " stamina.\n";
 }
 
-void DisplayArea(std::string areaName, std::string areaDescription)
+void DisplayArea(Area area)
 {
-    std::cout << "You find yourself in the " << areaName << "\n";
-    std::cout << areaDescription << "\n";
+    std::cout << "You find yourself in the " << area.name << "\n";
+    std::cout << area.description << "\n";
 }
 
 int Look()
@@ -42,7 +43,7 @@ int Look()
     return choice;
 }
 
-void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescriptions, int& currentAreaIndex, int& stamina)
+void Move(std::vector<Area> areas, int& currentAreaIndex, int& stamina)
 {
     std::cout << "Where would you like to move?\n";
     int lower = currentAreaIndex - 1;
@@ -54,13 +55,13 @@ void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescr
     {
         ++displayNum;
         lowerDisplayNum = displayNum;
-        std::cout << "\t"<< displayNum <<".\t"<< areaNames[lower] <<"\n";
+        std::cout << "\t"<< displayNum <<".\t"<< areas[lower].name <<"\n";
     }
-    if (upper < areaNames.size())
+    if (upper < areas.size())
     {
         ++displayNum;
         upperDisplayNum = displayNum;
-        std::cout << "\t" << displayNum << ".\t" << areaNames[upper] << "\n";
+        std::cout << "\t" << displayNum << ".\t" << areas[upper].name << "\n";
     }
     ++displayNum;
     std::cout << "\t" << displayNum << ".\t" << "Cancel" << "\n";
@@ -72,13 +73,13 @@ void Move(std::vector<std::string> areaNames, std::vector<std::string> areaDescr
     {
         stamina -= 5;
         currentAreaIndex = lower;
-        DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+        DisplayArea(areas[currentAreaIndex]);
     }
     if (choice == upperDisplayNum)
     {
         stamina -= 5;
         currentAreaIndex = upper;
-        DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+        DisplayArea(areas[currentAreaIndex]);
     }
 
 }
@@ -97,16 +98,20 @@ int main()
     player.description = "A brave warrior.";
     player.stamina = 10;
 
-    std::vector<std::string> areaNames;
-    std::vector<std::string> areaDescriptions;
+    std::vector<Area> areas;
 
-    areaNames.push_back("Courtyard");
-    areaNames.push_back("Entry Hall");
-    areaNames.push_back("Throne Room");
+    Area tempArea;
+    tempArea.name = "Courtyard";
+    tempArea.description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
+    areas.push_back(tempArea);
 
-    areaDescriptions.push_back("This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.");
-    areaDescriptions.push_back("The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.");
-    areaDescriptions.push_back("A stained and faded red carpet leads down the room to a jagged, black stone throne.");
+    tempArea.name = "Entry Hall";
+    tempArea.description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
+    areas.push_back(tempArea);
+
+    tempArea.name = "Throne Room";
+    tempArea.description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
+    areas.push_back(tempArea);
 
     int currentAreaIndex = 0;
 
@@ -118,7 +123,7 @@ int main()
     std::cout << "Welcome!\n";
     DisplayPlayer(player);
 
-    DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+    DisplayArea(areas[currentAreaIndex]);
 
     while (play)
     {
@@ -135,7 +140,7 @@ int main()
                 DisplayPlayer(player);
                 break;
             case 2:
-                DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
+                DisplayArea(areas[currentAreaIndex]);
                 break;
             default:
                 break;
@@ -143,7 +148,7 @@ int main()
             break;
         }
         case 2:
-            Move(areaNames, areaDescriptions, currentAreaIndex, player.stamina);
+            Move(areas, currentAreaIndex, player.stamina);
             break;
         case 3:
             Quit();
