@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Player.h"
 
 int DisplayAndReadPlayerAction()
 {
@@ -91,9 +92,10 @@ void Quit()
 
 int main()
 {
-    std::string playerName = "Steve";
-    std::string playerDescription = "A brave warrior.";
-    int playerStamina = 10;
+    Player player;
+    player.name = "Steve";
+    player.description = "A brave warrior.";
+    player.stamina = 10;
 
     std::vector<std::string> areaNames;
     std::vector<std::string> areaDescriptions;
@@ -111,10 +113,10 @@ int main()
     bool play = true;
 
     std::cout << "Please enter your name.\n";
-    std::getline(std::cin, playerName);
+    std::getline(std::cin, player.name);
 
     std::cout << "Welcome!\n";
-    DisplayPlayer(playerName, playerDescription, playerStamina);
+    DisplayPlayer(player.name, player.description, player.stamina);
 
     DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
 
@@ -130,7 +132,7 @@ int main()
             switch (lookChoice)
             {
             case 1:
-                DisplayPlayer(playerName, playerDescription, playerStamina);
+                DisplayPlayer(player.name, player.description, player.stamina);
                 break;
             case 2:
                 DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
@@ -141,7 +143,7 @@ int main()
             break;
         }
         case 2:
-            Move(areaNames, areaDescriptions, currentAreaIndex, playerStamina);
+            Move(areaNames, areaDescriptions, currentAreaIndex, player.stamina);
             break;
         case 3:
             Quit();
@@ -151,7 +153,7 @@ int main()
             break;
         }
 
-        if (playerStamina <= 0)
+        if (player.stamina <= 0)
         {
             std::cout << "You are out of stamina. Game Over - better luck next time.\n";
             play = false;
