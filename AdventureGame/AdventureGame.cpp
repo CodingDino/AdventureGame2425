@@ -16,10 +16,10 @@ int DisplayAndReadPlayerAction()
 
     return choice;
 }
-void DisplayPlayer(std::string name, std::string desc, int stam)
+void DisplayPlayer(Player player)
 {
-    std::cout << "You are " << name << ", " << desc << "\n";
-    std::cout << "You have " << stam << " stamina.\n";
+    std::cout << "You are " << player.name << ", " << player.description << "\n";
+    std::cout << "You have " << player.stamina << " stamina.\n";
 }
 
 void DisplayArea(std::string areaName, std::string areaDescription)
@@ -116,7 +116,7 @@ int main()
     std::getline(std::cin, player.name);
 
     std::cout << "Welcome!\n";
-    DisplayPlayer(player.name, player.description, player.stamina);
+    DisplayPlayer(player);
 
     DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
 
@@ -132,7 +132,7 @@ int main()
             switch (lookChoice)
             {
             case 1:
-                DisplayPlayer(player.name, player.description, player.stamina);
+                DisplayPlayer(player);
                 break;
             case 2:
                 DisplayArea(areaNames[currentAreaIndex], areaDescriptions[currentAreaIndex]);
