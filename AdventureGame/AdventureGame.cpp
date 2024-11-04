@@ -17,17 +17,6 @@ int DisplayAndReadPlayerAction()
 
     return choice;
 }
-void DisplayPlayer(Player player)
-{
-    std::cout << "You are " << player.name << ", " << player.description << "\n";
-    std::cout << "You have " << player.stamina << " stamina.\n";
-}
-
-void DisplayArea(Area area)
-{
-    std::cout << "You find yourself in the " << area.name << "\n";
-    std::cout << area.description << "\n";
-}
 
 int Look()
 {
@@ -73,13 +62,13 @@ void Move(std::vector<Area> areas, int& currentAreaIndex, int& stamina)
     {
         stamina -= 5;
         currentAreaIndex = lower;
-        DisplayArea(areas[currentAreaIndex]);
+        areas[currentAreaIndex].Display();
     }
     if (choice == upperDisplayNum)
     {
         stamina -= 5;
         currentAreaIndex = upper;
-        DisplayArea(areas[currentAreaIndex]);
+        areas[currentAreaIndex].Display();
     }
 
 }
@@ -121,9 +110,9 @@ int main()
     std::getline(std::cin, player.name);
 
     std::cout << "Welcome!\n";
-    DisplayPlayer(player);
+    player.Display();
 
-    DisplayArea(areas[currentAreaIndex]);
+    areas[currentAreaIndex].Display();
 
     while (play)
     {
@@ -137,10 +126,10 @@ int main()
             switch (lookChoice)
             {
             case 1:
-                DisplayPlayer(player);
+                player.Display();
                 break;
             case 2:
-                DisplayArea(areas[currentAreaIndex]);
+                areas[currentAreaIndex].Display();
                 break;
             default:
                 break;
