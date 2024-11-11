@@ -9,6 +9,7 @@ public:
     Player();
     Player(std::string newDescription);
     Player(const Player& other);
+    ~Player();
 
     // Methods
     void Display();

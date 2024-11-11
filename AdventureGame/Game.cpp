@@ -21,6 +21,12 @@ Game::Game(const Game& other)
     //std::cout << "Game copy constructor called.\n";
 }
 
+Game::~Game()
+{
+    // TEMP: DEBUG
+    std::cout << "Game destructor called.\n";
+}
+
 void Game::Initialise()
 {
     Area tempArea;

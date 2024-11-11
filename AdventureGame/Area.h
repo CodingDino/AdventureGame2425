@@ -9,6 +9,7 @@ public:
 	Area();
 	Area(std::string newName, std::string newDescription);
 	Area(const Area& other);
+	~Area();
 
 	// Methods
 	void Display();

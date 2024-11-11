@@ -25,6 +25,12 @@ Area::Area(const Area& other)
     //std::cout << "Area copy constructor called.\n";
 }
 
+Area::~Area()
+{
+    // TEMP: DEBUG
+    std::cout << "Area destructor called.\n";
+}
+
 void Area::Display()
 {
     std::cout << "You find yourself in the " << name << "\n";

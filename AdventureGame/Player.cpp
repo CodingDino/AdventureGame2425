@@ -28,6 +28,12 @@ Player::Player(const Player& other)
     //std::cout << "Player copy constructor called.\n";
 }
 
+Player::~Player()
+{
+    // TEMP: DEBUG
+    std::cout << "Player destructor called.\n";
+}
+
 void Player::Display()
 {
     std::cout << "You are " << name << ", " << description << "\n";
