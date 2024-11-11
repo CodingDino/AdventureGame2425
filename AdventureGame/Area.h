@@ -5,6 +5,11 @@ class Area
 {
 public:
 
+	// Constructors
+	Area();
+	Area(std::string newName, std::string newDescription);
+	Area(const Area& other);
+
 	// Methods
 	void Display();
 

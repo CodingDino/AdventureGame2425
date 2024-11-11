@@ -7,6 +7,10 @@ class Game
 {
 public:
 
+	// Constructors
+	Game();
+	Game(const Game& other);
+
 	// Methods
 	void Initialise();
 	void Run();

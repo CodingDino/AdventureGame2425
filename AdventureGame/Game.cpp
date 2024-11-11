@@ -1,12 +1,28 @@
 #include "Game.h"
 #include <iostream>
 
+Game::Game()
+    : player()
+    , areas()
+    , currentAreaIndex(0)
+    , play(true)
+{
+    // TEMP: DEBUG
+    //std::cout << "Game default constructor called.\n";
+}
+
+Game::Game(const Game& other)
+    : player(other.player)
+    , areas(other.areas)
+    , currentAreaIndex(other.currentAreaIndex)
+    , play(other.play)
+{
+    // TEMP: DEBUG
+    //std::cout << "Game copy constructor called.\n";
+}
+
 void Game::Initialise()
 {
-    player.name = "Steve";
-    player.description = "A brave warrior.";
-    player.stamina = 10;
-
     Area tempArea;
     tempArea.name = "Courtyard";
     tempArea.description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
@@ -20,10 +36,6 @@ void Game::Initialise()
     tempArea.description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
     areas.push_back(tempArea);
 
-    currentAreaIndex = 0;
-
-    play = true;
-
     std::cout << "Please enter your name.\n";
     std::getline(std::cin, player.name);
 
@@ -31,12 +43,10 @@ void Game::Initialise()
     player.Display();
 
     areas[currentAreaIndex].Display();
-
 }
 
 void Game::Run()
 {
-
     while (play)
     {
         int choice = DisplayAndReadPlayerAction();
