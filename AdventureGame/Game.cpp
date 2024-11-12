@@ -147,40 +147,21 @@ void Game::Look()
 void Game::Move()
 {
     std::cout << "Where would you like to move?\n";
-    int lower = currentAreaIndex - 1;
-    int lowerDisplayNum = -1;
-    int upper = currentAreaIndex + 1;
-    int upperDisplayNum = -1;
-    int displayNum = 0;
-    if (lower >= 0)
-    {
-        ++displayNum;
-        lowerDisplayNum = displayNum;
-        std::cout << "\t" << displayNum << ".\t" << areas[lower]->name << "\n";
-    }
-    if (upper < areas.size())
-    {
-        ++displayNum;
-        upperDisplayNum = displayNum;
-        std::cout << "\t" << displayNum << ".\t" << areas[upper]->name << "\n";
-    }
-    ++displayNum;
-    std::cout << "\t" << displayNum << ".\t" << "Cancel" << "\n";
+    
+    currentArea->DisplayExits();
+
+    int cancelNum = currentArea->exits.size() + 1;
+    std::cout << "\t" << cancelNum << ".\t" << "Cancel" << "\n";
 
     int choice;
     std::cin >> choice;
 
-    if (choice == lowerDisplayNum)
+    if (choice > 0 && choice < cancelNum)
     {
+        choice = choice - 1; // start from 0 not 1
+        currentArea = currentArea->exits[choice];
+        currentArea->Display();
         player->stamina -= 5;
-        currentAreaIndex = lower;
-        areas[currentAreaIndex]->Display();
-    }
-    if (choice == upperDisplayNum)
-    {
-        player->stamina -= 5;
-        currentAreaIndex = upper;
-        areas[currentAreaIndex]->Display();
     }
 }
 
