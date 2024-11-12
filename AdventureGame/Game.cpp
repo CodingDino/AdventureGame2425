@@ -2,7 +2,7 @@
 #include <iostream>
 
 Game::Game()
-    : player()
+    : player(new Player())
     , areas()
     , currentAreaIndex(0)
     , play(true)
@@ -12,7 +12,7 @@ Game::Game()
 }
 
 Game::Game(const Game& other)
-    : player(other.player)
+    : player(new Player(*(other.player)))
     , areas(other.areas)
     , currentAreaIndex(other.currentAreaIndex)
     , play(other.play)
@@ -23,6 +23,9 @@ Game::Game(const Game& other)
 
 Game::~Game()
 {
+    delete player;
+    player = nullptr;
+
     // TEMP: DEBUG
     std::cout << "Game destructor called.\n";
 }
@@ -43,10 +46,10 @@ void Game::Initialise()
     areas.push_back(tempArea);
 
     std::cout << "Please enter your name.\n";
-    std::getline(std::cin, player.name);
+    std::getline(std::cin, player->name);
 
     std::cout << "Welcome!\n";
-    player.Display();
+    player->Display();
 
     areas[currentAreaIndex].Display();
 }
@@ -74,7 +77,7 @@ void Game::Run()
             break;
         }
 
-        if (player.stamina <= 0)
+        if (player->stamina <= 0)
         {
             std::cout << "You are out of stamina. Game Over - better luck next time.\n";
             play = false;
@@ -110,7 +113,7 @@ void Game::Look()
     switch (choice)
     {
     case 1:
-        player.Display();
+        player->Display();
         break;
     case 2:
         areas[currentAreaIndex].Display();
@@ -148,13 +151,13 @@ void Game::Move()
 
     if (choice == lowerDisplayNum)
     {
-        player.stamina -= 5;
+        player->stamina -= 5;
         currentAreaIndex = lower;
         areas[currentAreaIndex].Display();
     }
     if (choice == upperDisplayNum)
     {
-        player.stamina -= 5;
+        player->stamina -= 5;
         currentAreaIndex = upper;
         areas[currentAreaIndex].Display();
     }

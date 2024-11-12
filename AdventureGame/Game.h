@@ -21,7 +21,7 @@ public:
 	void Quit();
 
 	// Data Members
-	Player player;
+	Player* player;
 	std::vector<Area> areas;
 	int currentAreaIndex;
 	bool play;
