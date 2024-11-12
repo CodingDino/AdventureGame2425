@@ -4,6 +4,7 @@
 Area::Area()
     : name("Area")
     , description("Area description")
+    , exits()
 {
     // TEMP: DEBUG
     //std::cout << "Area default constructor called.\n";
@@ -12,6 +13,7 @@ Area::Area()
 Area::Area(std::string newName, std::string newDescription)
     : name(newName)
     , description(newDescription)
+    , exits()
 {
     // TEMP: DEBUG
     //std::cout << "Area parameterized constructor called.\n";
@@ -20,6 +22,7 @@ Area::Area(std::string newName, std::string newDescription)
 Area::Area(const Area& other)
     : name(other.name)
     , description(other.description)
+    , exits(other.exits)
 {
     // TEMP: DEBUG
     //std::cout << "Area copy constructor called.\n";
