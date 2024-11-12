@@ -137,7 +137,7 @@ void Game::Look()
         player->Display();
         break;
     case 2:
-        areas[currentAreaIndex]->Display();
+        currentArea->Display();
         break;
     default:
         break;
