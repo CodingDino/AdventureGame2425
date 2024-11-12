@@ -42,20 +42,29 @@ Game::~Game()
 
 void Game::Initialise()
 {
-    Area* tempArea = new Area();
-    tempArea->name = "Courtyard";
-    tempArea->description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
-    areas.push_back(tempArea);
+    Area* courtyard = new Area();
+    courtyard->name = "Courtyard";
+    courtyard->description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
+    areas.push_back(courtyard);
 
-    tempArea = new Area();
-    tempArea->name = "Entry Hall";
-    tempArea->description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
-    areas.push_back(tempArea);
+    Area* entryHall = new Area();
+    entryHall->name = "Entry Hall";
+    entryHall->description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
+    areas.push_back(entryHall);
 
-    tempArea = new Area();
-    tempArea->name = "Throne Room";
-    tempArea->description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
-    areas.push_back(tempArea);
+    Area* throneRoom = new Area();
+    throneRoom->name = "Throne Room";
+    throneRoom->description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
+    areas.push_back(throneRoom);
+
+    // Set up exits
+    courtyard->exits.push_back(entryHall);
+    entryHall->exits.push_back(courtyard);
+    entryHall->exits.push_back(throneRoom);
+    throneRoom->exits.push_back(entryHall);
+
+    // Set up current area
+    currentArea = courtyard;
 
     std::cout << "Please enter your name.\n";
     std::getline(std::cin, player->name);
