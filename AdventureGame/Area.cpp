@@ -38,4 +38,20 @@ void Area::Display()
 {
     std::cout << "You find yourself in the " << name << "\n";
     std::cout << description << "\n";
+    DisplayExits();
+}
+
+void Area::DisplayExits()
+{
+    if (exits.empty())
+    {
+        std::cout << "There are no exits from this area.\n";
+    }
+
+    for (int i = 0; i < exits.size(); ++i)
+    {
+        std::cout << "Exits from this area are:\n";
+        int displayI = i + 1;
+        std::cout << "\t"<< displayI <<".\t"<< exits[i] <<"\n";
+    }
 }

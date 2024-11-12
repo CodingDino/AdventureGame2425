@@ -14,6 +14,7 @@ public:
 
 	// Methods
 	void Display();
+	void DisplayExits();
 
 	// Data Members
 	std::string name;
