@@ -47,11 +47,14 @@ void Area::DisplayExits()
     {
         std::cout << "There are no exits from this area.\n";
     }
-
-    for (int i = 0; i < exits.size(); ++i)
+    else
     {
         std::cout << "Exits from this area are:\n";
-        int displayI = i + 1;
-        std::cout << "\t"<< displayI <<".\t"<< exits[i] <<"\n";
+        for (int i = 0; i < exits.size(); ++i)
+        {
+            int displayI = i + 1;
+            std::cout << "\t" << displayI << ".\t" << exits[i]->name << "\n";
+        }
     }
+
 }
