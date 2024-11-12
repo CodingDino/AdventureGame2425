@@ -22,7 +22,7 @@ public:
 
 	// Data Members
 	Player* player;
-	std::vector<Area> areas;
+	std::vector<Area*> areas;
 	int currentAreaIndex;
 	bool play;
 };

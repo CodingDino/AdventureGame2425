@@ -13,7 +13,7 @@ Game::Game()
 
 Game::Game(const Game& other)
     : player(new Player(*(other.player)))
-    , areas(other.areas)
+    , areas(other.areas) // should probably do deep copy
     , currentAreaIndex(other.currentAreaIndex)
     , play(other.play)
 {
@@ -26,23 +26,33 @@ Game::~Game()
     delete player;
     player = nullptr;
 
+    // delete all areas
+    for (int i = 0; i < areas.size(); ++i)
+    {
+        delete areas[i];
+        areas[i] = nullptr;
+    }
+    areas.clear(); // Removes all items from vector
+
     // TEMP: DEBUG
     std::cout << "Game destructor called.\n";
 }
 
 void Game::Initialise()
 {
-    Area tempArea;
-    tempArea.name = "Courtyard";
-    tempArea.description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
+    Area* tempArea = new Area();
+    tempArea->name = "Courtyard";
+    tempArea->description = "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins.";
     areas.push_back(tempArea);
 
-    tempArea.name = "Entry Hall";
-    tempArea.description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
+    tempArea = new Area();
+    tempArea->name = "Entry Hall";
+    tempArea->description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
     areas.push_back(tempArea);
 
-    tempArea.name = "Throne Room";
-    tempArea.description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
+    tempArea = new Area();
+    tempArea->name = "Throne Room";
+    tempArea->description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
     areas.push_back(tempArea);
 
     std::cout << "Please enter your name.\n";
@@ -51,7 +61,7 @@ void Game::Initialise()
     std::cout << "Welcome!\n";
     player->Display();
 
-    areas[currentAreaIndex].Display();
+    areas[currentAreaIndex]->Display();
 }
 
 void Game::Run()
@@ -116,7 +126,7 @@ void Game::Look()
         player->Display();
         break;
     case 2:
-        areas[currentAreaIndex].Display();
+        areas[currentAreaIndex]->Display();
         break;
     default:
         break;
@@ -135,13 +145,13 @@ void Game::Move()
     {
         ++displayNum;
         lowerDisplayNum = displayNum;
-        std::cout << "\t" << displayNum << ".\t" << areas[lower].name << "\n";
+        std::cout << "\t" << displayNum << ".\t" << areas[lower]->name << "\n";
     }
     if (upper < areas.size())
     {
         ++displayNum;
         upperDisplayNum = displayNum;
-        std::cout << "\t" << displayNum << ".\t" << areas[upper].name << "\n";
+        std::cout << "\t" << displayNum << ".\t" << areas[upper]->name << "\n";
     }
     ++displayNum;
     std::cout << "\t" << displayNum << ".\t" << "Cancel" << "\n";
@@ -153,13 +163,13 @@ void Game::Move()
     {
         player->stamina -= 5;
         currentAreaIndex = lower;
-        areas[currentAreaIndex].Display();
+        areas[currentAreaIndex]->Display();
     }
     if (choice == upperDisplayNum)
     {
         player->stamina -= 5;
         currentAreaIndex = upper;
-        areas[currentAreaIndex].Display();
+        areas[currentAreaIndex]->Display();
     }
 }
 
