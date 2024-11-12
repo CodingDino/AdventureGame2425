@@ -5,6 +5,7 @@ Game::Game()
     : player(new Player())
     , areas()
     , currentAreaIndex(0)
+    , currentArea(nullptr)
     , play(true)
 {
     // TEMP: DEBUG
@@ -15,6 +16,7 @@ Game::Game(const Game& other)
     : player(new Player(*(other.player)))
     , areas(other.areas) // should probably do deep copy
     , currentAreaIndex(other.currentAreaIndex)
+    , currentArea(other.currentArea) // could cause problems!
     , play(other.play)
 {
     // TEMP: DEBUG

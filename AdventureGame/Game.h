@@ -24,6 +24,7 @@ public:
 	Player* player;
 	std::vector<Area*> areas;
 	int currentAreaIndex;
+	Area* currentArea;
 	bool play;
 };
 
