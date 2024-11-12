@@ -4,7 +4,6 @@
 Game::Game()
     : player(new Player())
     , areas()
-    , currentAreaIndex(0)
     , currentArea(nullptr)
     , play(true)
 {
@@ -15,7 +14,6 @@ Game::Game()
 Game::Game(const Game& other)
     : player(new Player(*(other.player)))
     , areas(other.areas) // should probably do deep copy
-    , currentAreaIndex(other.currentAreaIndex)
     , currentArea(other.currentArea) // could cause problems!
     , play(other.play)
 {
@@ -72,7 +70,7 @@ void Game::Initialise()
     std::cout << "Welcome!\n";
     player->Display();
 
-    areas[currentAreaIndex]->Display();
+    currentArea->Display();
 }
 
 void Game::Run()
