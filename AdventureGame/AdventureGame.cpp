@@ -5,10 +5,11 @@
 
 int main()
 {
-	Game game;
-	game.Initialise();
-	game.Run();
-
+	Game* game = new Game();
+	game->Initialise();
+	game->Run();
+	delete game;
+	game = nullptr;
 }
 
 
