@@ -9,7 +9,6 @@ public:
 
 	// Constructors
 	Game();
-	Game(const Game& other);
 	~Game();
 
 	// Methods

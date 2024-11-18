@@ -11,16 +11,6 @@ Game::Game()
     //std::cout << "Game default constructor called.\n";
 }
 
-Game::Game(const Game& other)
-    : player(new Player(*(other.player)))
-    , areas(other.areas) // should probably do deep copy
-    , currentArea(other.currentArea) // could cause problems!
-    , play(other.play)
-{
-    // TEMP: DEBUG
-    //std::cout << "Game copy constructor called.\n";
-}
-
 Game::~Game()
 {
     delete player;
@@ -50,6 +40,11 @@ void Game::Initialise()
     entryHall->description = "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes.";
     areas.push_back(entryHall);
 
+    Area* sideRoom = new Area();
+    sideRoom->name = "Side Room";
+    sideRoom->description = "This dusty side room was once host for meetings, but seems to have later been used as a storage cupboard. Old boxes litter the floor.";
+    areas.push_back(sideRoom);
+
     Area* throneRoom = new Area();
     throneRoom->name = "Throne Room";
     throneRoom->description = "A stained and faded red carpet leads down the room to a jagged, black stone throne.";
@@ -59,6 +54,8 @@ void Game::Initialise()
     courtyard->exits.push_back(entryHall);
     entryHall->exits.push_back(courtyard);
     entryHall->exits.push_back(throneRoom);
+    entryHall->exits.push_back(sideRoom);
+    sideRoom->exits.push_back(entryHall);
     throneRoom->exits.push_back(entryHall);
 
     // Set up current area
@@ -159,7 +156,7 @@ void Game::Move()
         choice = choice - 1; // start from 0 not 1
         currentArea = currentArea->exits[choice];
         currentArea->Display();
-        player->stamina -= 5;
+        player->stamina -= 1;
     }
 }
 
