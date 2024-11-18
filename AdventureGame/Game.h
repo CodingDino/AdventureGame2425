@@ -14,6 +14,10 @@ public:
 	// Methods
 	void Initialise();
 	void Run();
+
+private:
+
+	// Private Methods
 	int DisplayAndReadPlayerAction();
 	void Look();
 	void Move();
