@@ -39,3 +39,23 @@ void Player::Display()
     std::cout << "You are " << name << ", " << description << "\n";
     std::cout << "You have " << stamina << " stamina.\n";
 }
+
+void Player::SetName(std::string newName)
+{
+    name = newName;
+}
+
+int Player::GetStamina()
+{
+    return 0;
+}
+
+void Player::UseStamina(int toUse)
+{
+    stamina -= toUse;
+    if (stamina <= 0)
+    {
+        std::cout << "You have run out of stamina!\n";
+        stamina = 0;
+    }
+}

@@ -62,7 +62,9 @@ void Game::Initialise()
     currentArea = courtyard;
 
     std::cout << "Please enter your name.\n";
-    std::getline(std::cin, player->name);
+    std::string tempName;
+    std::getline(std::cin, tempName);
+    player->SetName(tempName);
 
     std::cout << "Welcome!\n";
     player->Display();
@@ -93,7 +95,7 @@ void Game::Run()
             break;
         }
 
-        if (player->stamina <= 0)
+        if (player->GetStamina() <= 0)
         {
             std::cout << "You are out of stamina. Game Over - better luck next time.\n";
             play = false;
@@ -156,7 +158,7 @@ void Game::Move()
         choice = choice - 1; // start from 0 not 1
         currentArea = currentArea->exits[choice];
         currentArea->Display();
-        player->stamina -= 1;
+        player->UseStamina(1);
     }
 }
 

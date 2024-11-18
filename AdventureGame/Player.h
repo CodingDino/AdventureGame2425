@@ -13,6 +13,11 @@ public:
 
     // Methods
     void Display();
+    void SetName(std::string newName);
+    int GetStamina();
+    void UseStamina(int toUse);
+
+private:
 
     // Data Members
     std::string name;
