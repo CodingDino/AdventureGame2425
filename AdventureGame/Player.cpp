@@ -47,7 +47,7 @@ void Player::SetName(std::string newName)
 
 int Player::GetStamina()
 {
-    return 0;
+    return stamina;
 }
 
 void Player::UseStamina(int toUse)
