@@ -16,6 +16,13 @@ public:
 	void Display();
 	void DisplayExits();
 
+	// Accessors
+	void AddExit(Area* newExit);
+	Area* GetExit(int index);
+	int GetNumExits();
+
+private:
+
 	// Data Members
 	std::string name;
 	std::string description;

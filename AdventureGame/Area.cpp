@@ -58,3 +58,26 @@ void Area::DisplayExits()
     }
 
 }
+
+void Area::AddExit(Area* newExit)
+{
+    exits.push_back(newExit);
+}
+
+Area* Area::GetExit(int index)
+{
+    if (index >= 0 && index < exits.size())
+    {
+        return exits[index];
+    }
+    else
+    {
+        std::cout << "ERROR: Exit index out of range: index = " << index << ", exit size = "<< exits.size() << "\n";
+        return nullptr;
+    }
+}
+
+int Area::GetNumExits()
+{
+    return exits.size();
+}
