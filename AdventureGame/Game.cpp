@@ -34,6 +34,7 @@ void Game::Initialise()
         "Courtyard", 
         "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins."
         );
+    courtyard->AddFeature(new Feature("Fountain", "A bubbling fountain gurgles despite its age."));
     areas.push_back(courtyard);
 
     Area* entryHall = new Area(
@@ -123,25 +124,42 @@ int Game::DisplayAndReadPlayerAction()
 
 void Game::Look()
 {
+
     std::cout << "What would you like to look at?\n";
     std::cout << "\t1.\tPlayer\n";
     std::cout << "\t2.\tArea\n";
-    std::cout << "\t3.\tCancel\n";
+
+    int lastNum = 3;
+
+    for (int i = 0; i < currentArea->GetNumFeatures(); ++i)
+    {
+        Feature* thisFeature = currentArea->GetFeature(i);
+        std::string featureName = thisFeature->GetName();
+        std::cout << "\t" << lastNum << ".\t"<< featureName <<"\n";
+        ++lastNum;
+    }
+
+    int cancelNum = lastNum;
+
+    std::cout << "\t"<< lastNum << ".\tCancel\n";
 
     int choice;
     std::cin >> choice;
     // TODO: input validation stuff
 
-    switch (choice)
+    if (choice == 1)
     {
-    case 1:
         player->Display();
-        break;
-    case 2:
+    }
+    else if (choice == 2)
+    {
         currentArea->Display();
-        break;
-    default:
-        break;
+    }
+    // Features
+    else if (choice > 2 && choice < cancelNum)
+    {
+        int i = choice - 3; // start at 0
+        currentArea->GetFeature(i)->Display();
     }
 }
 

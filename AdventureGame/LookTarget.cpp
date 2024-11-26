@@ -22,3 +22,8 @@ LookTarget::LookTarget(const LookTarget& other)
 LookTarget::~LookTarget()
 {
 }
+
+std::string LookTarget::GetName()
+{
+    return name;
+}

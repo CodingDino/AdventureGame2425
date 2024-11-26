@@ -11,6 +11,9 @@ public:
 	LookTarget(const LookTarget& other);
 	~LookTarget();
 
+	// Accessors
+	std::string GetName();
+
 protected:
 
 	// Data Members
