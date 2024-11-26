@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "LookTarget.h"
 
-class Player
+class Player : public LookTarget
 {
 public:
 
@@ -20,8 +21,6 @@ public:
 private:
 
     // Data Members
-    std::string name;
-    std::string description;
     int stamina;
 };
 

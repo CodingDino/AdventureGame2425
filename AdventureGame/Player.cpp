@@ -2,8 +2,7 @@
 #include <iostream>
 
 Player::Player()
-    : name("Steve")
-    , description("A brave warrior.")
+    : LookTarget("Steve", "A brave warrior.")
     , stamina(10)
 {
     // TEMP: DEBUG
@@ -11,8 +10,7 @@ Player::Player()
 }
 
 Player::Player(std::string newDescription)
-    : name("Steve")
-    , description(newDescription)
+    : LookTarget("Steve", newDescription)
     , stamina(10)
 {
     // TEMP: DEBUG
@@ -20,8 +18,7 @@ Player::Player(std::string newDescription)
 }
 
 Player::Player(const Player& other)
-    : name(other.name)
-    , description(other.description)
+    : LookTarget(other)
     , stamina(other.stamina)
 {
     // TEMP: DEBUG
