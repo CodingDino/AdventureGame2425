@@ -2,8 +2,7 @@
 #include <iostream>
 
 Area::Area()
-    : name("Area")
-    , description("Area description")
+    : LookTarget("Area", "Area description")
     , exits()
 {
     // TEMP: DEBUG
@@ -11,8 +10,7 @@ Area::Area()
 }
 
 Area::Area(std::string newName, std::string newDescription)
-    : name(newName)
-    , description(newDescription)
+    : LookTarget(newName, newDescription)
     , exits()
 {
     // TEMP: DEBUG
@@ -20,8 +18,7 @@ Area::Area(std::string newName, std::string newDescription)
 }
 
 Area::Area(const Area& other)
-    : name(other.name)
-    , description(other.description)
+    : LookTarget(other)
     , exits(other.exits)
 {
     // TEMP: DEBUG

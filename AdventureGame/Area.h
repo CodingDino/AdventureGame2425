@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "LookTarget.h"
 
-class Area
+class Area : public LookTarget
 {
 public:
 
@@ -24,8 +25,6 @@ public:
 private:
 
 	// Data Members
-	std::string name;
-	std::string description;
 	std::vector<Area*> exits;
 };
 
