@@ -35,6 +35,7 @@ void Game::Initialise()
         "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins."
         );
     courtyard->AddFeature(new Feature("Fountain", "A bubbling fountain gurgles despite its age."));
+    courtyard->AddItem(new Item("Pebble", "A simple pebble, small enough to fit in one's pocket."));
     areas.push_back(courtyard);
 
     Area* entryHall = new Area(
@@ -130,12 +131,22 @@ void Game::Look()
     std::cout << "\t2.\tArea\n";
 
     int lastNum = 3;
+    int featureStart = lastNum;
 
     for (int i = 0; i < currentArea->GetNumFeatures(); ++i)
     {
         Feature* thisFeature = currentArea->GetFeature(i);
         std::string featureName = thisFeature->GetName();
         std::cout << "\t" << lastNum << ".\t"<< featureName <<"\n";
+        ++lastNum;
+    }
+    int itemStart = lastNum;
+
+    for (int i = 0; i < currentArea->GetNumItems(); ++i)
+    {
+        Item* thisItem = currentArea->GetItem(i);
+        std::string itemName = thisItem->GetName();
+        std::cout << "\t" << lastNum << ".\t" << itemName << "\n";
         ++lastNum;
     }
 
@@ -146,7 +157,6 @@ void Game::Look()
     int choice;
     std::cin >> choice;
     // TODO: input validation stuff
-
     if (choice == 1)
     {
         player->Display();
@@ -156,10 +166,16 @@ void Game::Look()
         currentArea->Display();
     }
     // Features
-    else if (choice > 2 && choice < cancelNum)
+    else if (choice >= featureStart && choice < featureStart+currentArea->GetNumFeatures())
     {
-        int i = choice - 3; // start at 0
+        int i = choice - featureStart; // start at 0
         currentArea->GetFeature(i)->Display();
+    }
+    // Items
+    else if (choice >= itemStart && choice < itemStart + currentArea->GetNumItems())
+    {
+        int i = choice - itemStart; // start at 0
+        currentArea->GetItem(i)->Display();
     }
 }
 
