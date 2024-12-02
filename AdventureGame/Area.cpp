@@ -6,6 +6,7 @@ Area::Area()
     , exits()
     , features()
     , items()
+    , monster(nullptr)
 {
     // TEMP: DEBUG
     //std::cout << "Area default constructor called.\n";
@@ -16,6 +17,7 @@ Area::Area(std::string newName, std::string newDescription)
     , exits()
     , features()
     , items()
+    , monster(nullptr)
 {
     // TEMP: DEBUG
     //std::cout << "Area parameterized constructor called.\n";
@@ -26,6 +28,7 @@ Area::Area(const Area& other)
     , exits(other.exits)
     , features(other.features)
     , items(other.items)
+    , monster(nullptr)
 {
     // TEMP: DEBUG
     //std::cout << "Area copy constructor called.\n";
@@ -51,6 +54,13 @@ Area::~Area()
         items[i] = nullptr;
     }
     items.clear();
+
+    // Delete monster
+    if (monster != nullptr)
+    {
+        delete monster;
+        monster = nullptr;
+    }
 }
 
 void Area::Display()
@@ -59,6 +69,7 @@ void Area::Display()
     std::cout << description << "\n";
     DisplayFeatures();
     DisplayItems();
+    DisplayMonster();
     DisplayExits();
 }
 
@@ -102,6 +113,16 @@ void Area::DisplayItems()
         {
             std::cout << items[i]->GetName() << " ";
         }
+        std::cout << "\n";
+    }
+}
+
+void Area::DisplayMonster()
+{
+    if (monster != nullptr)
+    {
+        std::cout << "There is a monster here: ";
+        std::cout << monster->GetName();
         std::cout << "\n";
     }
 }
@@ -157,4 +178,19 @@ Item* Area::GetItem(int index)
 int Area::GetNumItems()
 {
     return items.size();
+}
+
+void Area::SetMonster(Monster* newMonster)
+{
+    if (monster != nullptr)
+    {
+        delete monster;
+        monster = nullptr;
+    }
+    monster = newMonster;
+}
+
+Monster* Area::GetMonster()
+{
+    return monster;
 }

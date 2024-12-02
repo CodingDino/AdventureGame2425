@@ -4,6 +4,7 @@
 #include "LookTarget.h"
 #include "Feature.h"
 #include "Item.h"
+#include "Monster.h"
 
 class Area : public LookTarget
 {
@@ -20,6 +21,7 @@ public:
 	void DisplayExits();
 	void DisplayFeatures();
 	void DisplayItems();
+	void DisplayMonster();
 
 	// Accessors
 	void AddExit(Area* newExit);
@@ -31,6 +33,8 @@ public:
 	void AddItem(Item* newItem);
 	Item* GetItem(int index);
 	int GetNumItems();
+	void SetMonster(Monster* newMonster);
+	Monster* GetMonster();
 
 private:
 
@@ -38,5 +42,6 @@ private:
 	std::vector<Area*> exits;
 	std::vector<Feature*> features;
 	std::vector<Item*> items;
+	Monster* monster;
 };
 

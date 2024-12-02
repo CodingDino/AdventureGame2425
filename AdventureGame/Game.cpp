@@ -36,6 +36,7 @@ void Game::Initialise()
         );
     courtyard->AddFeature(new Feature("Fountain", "A bubbling fountain gurgles despite its age."));
     courtyard->AddItem(new Item("Pebble", "A simple pebble, small enough to fit in one's pocket."));
+    courtyard->SetMonster(new Monster("Giant Bat", "A big flying bat who wants to suck your blood!"));
     areas.push_back(courtyard);
 
     Area* entryHall = new Area(
@@ -150,6 +151,13 @@ void Game::Look()
         ++lastNum;
     }
 
+    int monsterNum = lastNum;
+    if (currentArea->GetMonster() != nullptr)
+    {
+        std::cout << "\t" << lastNum << ".\t" << currentArea->GetMonster()->GetName() << "\n";
+        ++lastNum;
+    }
+
     int cancelNum = lastNum;
 
     std::cout << "\t"<< lastNum << ".\tCancel\n";
@@ -176,6 +184,11 @@ void Game::Look()
     {
         int i = choice - itemStart; // start at 0
         currentArea->GetItem(i)->Display();
+    }
+    // Monster
+    else if (currentArea->GetMonster() != nullptr && choice == monsterNum)
+    {
+        currentArea->GetMonster()->Display();
     }
 }
 

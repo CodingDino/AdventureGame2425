@@ -1,8 +1,8 @@
 #include "Item.h"
-
 #include <iostream>
 
 Item::Item()
+	:LookTarget("Item", "Description")
 {
 }
 
