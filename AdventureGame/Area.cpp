@@ -4,8 +4,8 @@
 Area::Area()
     : LookTarget("Area", "Area description")
     , exits()
-    , features()
-    , items()
+    , feature(nullptr)
+    , item(nullptr)
     , monster(nullptr)
 {
     // TEMP: DEBUG
@@ -15,8 +15,8 @@ Area::Area()
 Area::Area(std::string newName, std::string newDescription)
     : LookTarget(newName, newDescription)
     , exits()
-    , features()
-    , items()
+    , feature(nullptr)
+    , item(nullptr)
     , monster(nullptr)
 {
     // TEMP: DEBUG
@@ -26,9 +26,9 @@ Area::Area(std::string newName, std::string newDescription)
 Area::Area(const Area& other)
     : LookTarget(other)
     , exits(other.exits)
-    , features(other.features)
-    , items(other.items)
-    , monster(nullptr)
+    , feature(other.feature)
+    , item(other.item)
+    , monster(other.monster)
 {
     // TEMP: DEBUG
     //std::cout << "Area copy constructor called.\n";
@@ -40,20 +40,18 @@ Area::~Area()
     std::cout << "Area destructor called.\n";
 
     // Delete all features!
-    for (int i = 0; i < features.size(); ++i)
+    if (feature != nullptr)
     {
-        delete features[i];
-        features[i] = nullptr;
+        delete feature;
+        feature = nullptr;
     }
-    features.clear();
 
     // Delete all items!
-    for (int i = 0; i < items.size(); ++i)
+    if (item != nullptr)
     {
-        delete items[i];
-        items[i] = nullptr;
+        delete item;
+        item = nullptr;
     }
-    items.clear();
 
     // Delete monster
     if (monster != nullptr)
@@ -67,9 +65,7 @@ void Area::Display()
 {
     std::cout << "You find yourself in the " << name << "\n";
     std::cout << description << "\n";
-    DisplayFeatures();
-    DisplayItems();
-    DisplayMonster();
+    DisplayContents();
     DisplayExits();
 }
 
@@ -91,37 +87,23 @@ void Area::DisplayExits()
 
 }
 
-void Area::DisplayFeatures()
+void Area::DisplayContents()
 {
-    if (!features.empty())
+    if (feature)
     {
-        std::cout << "Area features: ";
-        for (int i = 0; i < features.size(); ++i)
-        {
-            std::cout << features[i]->GetName() <<" ";
-        }
+        std::cout << "Area contains: ";
+        std::cout << feature->GetName();
         std::cout << "\n";
     }
-}
-
-void Area::DisplayItems()
-{
-    if (!items.empty())
+    else if (item)
     {
-        std::cout << "Some items are here: ";
-        for (int i = 0; i < items.size(); ++i)
-        {
-            std::cout << items[i]->GetName() << " ";
-        }
+        std::cout << "Area contains: ";
+        std::cout << item->GetName();
         std::cout << "\n";
     }
-}
-
-void Area::DisplayMonster()
-{
-    if (monster != nullptr)
+    else if (monster)
     {
-        std::cout << "There is a monster here: ";
+        std::cout << "Area contains: ";
         std::cout << monster->GetName();
         std::cout << "\n";
     }
@@ -150,34 +132,34 @@ int Area::GetNumExits()
     return exits.size();
 }
 
-void Area::AddFeature(Feature* newFeature)
+void Area::SetFeature(Feature* newFeature)
 {
-    features.push_back(newFeature);
+    if (feature != nullptr)
+    {
+        delete feature;
+        feature = nullptr;
+    }
+    feature = newFeature;
 }
 
-Feature* Area::GetFeature(int index)
+Feature* Area::GetFeature()
 {
-    return features[index];
+    return feature;
 }
 
-int Area::GetNumFeatures()
+void Area::SetItem(Item* newItem)
 {
-    return features.size();
+    if (item != nullptr)
+    {
+        delete item;
+        item = nullptr;
+    }
+    item = newItem;
 }
 
-void Area::AddItem(Item* newItem)
+Item* Area::GetItem()
 {
-    items.push_back(newItem);
-}
-
-Item* Area::GetItem(int index)
-{
-    return items[index];
-}
-
-int Area::GetNumItems()
-{
-    return items.size();
+    return item;
 }
 
 void Area::SetMonster(Monster* newMonster)

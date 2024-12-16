@@ -19,20 +19,16 @@ public:
 	// Methods
 	void Display();
 	void DisplayExits();
-	void DisplayFeatures();
-	void DisplayItems();
-	void DisplayMonster();
+	void DisplayContents();
 
 	// Accessors
 	void AddExit(Area* newExit);
 	Area* GetExit(int index);
 	int GetNumExits();
-	void AddFeature(Feature* newFeature);
-	Feature* GetFeature(int index);
-	int GetNumFeatures();
-	void AddItem(Item* newItem);
-	Item* GetItem(int index);
-	int GetNumItems();
+	void SetFeature(Feature* newFeature);
+	Feature* GetFeature();
+	void SetItem(Item* newItem);
+	Item* GetItem();
 	void SetMonster(Monster* newMonster);
 	Monster* GetMonster();
 
@@ -40,8 +36,8 @@ private:
 
 	// Data Members
 	std::vector<Area*> exits;
-	std::vector<Feature*> features;
-	std::vector<Item*> items;
+	Feature* feature;
+	Item* item;
 	Monster* monster;
 };
 

@@ -34,21 +34,21 @@ void Game::Initialise()
         "Courtyard", 
         "This overgrown courtyard is filled with crumbling statuary. The haunting caws of crows echos through the ruins."
         );
-    courtyard->AddFeature(new Feature("Fountain", "A bubbling fountain gurgles despite its age."));
-    courtyard->AddItem(new Item("Pebble", "A simple pebble, small enough to fit in one's pocket."));
-    courtyard->SetMonster(new Monster("Giant Bat", "A big flying bat who wants to suck your blood!"));
+    courtyard->SetFeature(new Feature("Fountain", "A bubbling fountain gurgles despite its age."));
     areas.push_back(courtyard);
 
     Area* entryHall = new Area(
         "Entry Hall",
         "The long entry hall houses rusted suits of armor lining the entrance. Strange paintings on the walls seem to follow you with their eyes."
     );
+    entryHall->SetItem(new Item("Pebble", "A simple pebble, small enough to fit in one's pocket."));
     areas.push_back(entryHall);
 
     Area* sideRoom = new Area(
         "Side Room",
         "This dusty side room was once host for meetings, but seems to have later been used as a storage cupboard. Old boxes litter the floor."
     );
+    sideRoom->SetMonster(new Monster("Giant Bat", "A big flying bat who wants to suck your blood!"));
     areas.push_back(sideRoom);
 
     Area* throneRoom = new Area(
@@ -131,36 +131,25 @@ void Game::Look()
     std::cout << "\t1.\tPlayer\n";
     std::cout << "\t2.\tArea\n";
 
-    int lastNum = 3;
-    int featureStart = lastNum;
-
-    for (int i = 0; i < currentArea->GetNumFeatures(); ++i)
+    if (currentArea->GetFeature() != nullptr)
     {
-        Feature* thisFeature = currentArea->GetFeature(i);
-        std::string featureName = thisFeature->GetName();
-        std::cout << "\t" << lastNum << ".\t"<< featureName <<"\n";
-        ++lastNum;
+        std::cout << "\t3.\t" << currentArea->GetFeature()->GetName() << "\n";
+        std::cout << "\t4.\tCancel\n";
     }
-    int itemStart = lastNum;
-
-    for (int i = 0; i < currentArea->GetNumItems(); ++i)
+    else if (currentArea->GetItem() != nullptr)
     {
-        Item* thisItem = currentArea->GetItem(i);
-        std::string itemName = thisItem->GetName();
-        std::cout << "\t" << lastNum << ".\t" << itemName << "\n";
-        ++lastNum;
+        std::cout << "\t3.\t" << currentArea->GetItem()->GetName() << "\n";
+        std::cout << "\t4.\tCancel\n";
     }
-
-    int monsterNum = lastNum;
-    if (currentArea->GetMonster() != nullptr)
+    else if (currentArea->GetMonster() != nullptr)
     {
-        std::cout << "\t" << lastNum << ".\t" << currentArea->GetMonster()->GetName() << "\n";
-        ++lastNum;
+        std::cout << "\t3.\t" << currentArea->GetMonster()->GetName() << "\n";
+        std::cout << "\t4.\tCancel\n";
     }
-
-    int cancelNum = lastNum;
-
-    std::cout << "\t"<< lastNum << ".\tCancel\n";
+    else
+    {
+        std::cout << "\t3.\tCancel\n";
+    }
 
     int choice;
     std::cin >> choice;
@@ -173,22 +162,20 @@ void Game::Look()
     {
         currentArea->Display();
     }
-    // Features
-    else if (choice >= featureStart && choice < featureStart+currentArea->GetNumFeatures())
+    else if (choice == 3)
     {
-        int i = choice - featureStart; // start at 0
-        currentArea->GetFeature(i)->Display();
-    }
-    // Items
-    else if (choice >= itemStart && choice < itemStart + currentArea->GetNumItems())
-    {
-        int i = choice - itemStart; // start at 0
-        currentArea->GetItem(i)->Display();
-    }
-    // Monster
-    else if (currentArea->GetMonster() != nullptr && choice == monsterNum)
-    {
-        currentArea->GetMonster()->Display();
+        if (currentArea->GetFeature() != nullptr)
+        {
+            currentArea->GetFeature()->Display();
+        }
+        else if (currentArea->GetItem() != nullptr)
+        {
+            currentArea->GetItem()->Display();
+        }
+        else if (currentArea->GetMonster() != nullptr)
+        {
+            currentArea->GetMonster()->Display();
+        }
     }
 }
 
